@@ -8,7 +8,7 @@ public abstract class Subscriber {
 		Random random = new Random();
 		this.id = random.nextInt();
 	}
-	public abstract void inform(Event e);
+	public abstract void inform(Event event);
 	public int getId(){
 		return id;
 	}

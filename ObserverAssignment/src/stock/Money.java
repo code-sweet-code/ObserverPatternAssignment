@@ -6,4 +6,9 @@ public class Money {
 		// TODO Auto-generated constructor stub
 	}
 
+	public float getAmount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -19,7 +19,7 @@ public class StockBroker extends Subscriber {
 	}
 	
 	@Override
-	public void inform(Event e) {
+	public void inform(Event event) {
 		// TODO Auto-generated method stub
 		
 	}
