@@ -1,6 +1,6 @@
 package stock;
 
-public class StockMonitor implements Subscriber {
+public class StockMonitor extends Subscriber {
 
 	public StockMonitor() {
 		// TODO Auto-generated constructor stub

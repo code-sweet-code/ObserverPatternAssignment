@@ -1,9 +1,13 @@
 package stock;
 
 public abstract class Event {
-
-	public Event() {
-		// TODO Auto-generated constructor stub
+	protected EventType type;
+	
+	protected Event(EventType type) {
+		this.type = type;
 	}
 
+	public EventType getEventType(){
+		return type;
+	}
 }

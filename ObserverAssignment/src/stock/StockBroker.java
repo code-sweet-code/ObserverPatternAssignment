@@ -1,9 +1,8 @@
 package stock;
 
-public class StockBroker implements Subscriber {
+public class StockBroker extends Subscriber {
 
 	public StockBroker() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
