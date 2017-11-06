@@ -7,13 +7,13 @@ import java.util.Map.Entry;
 
 public class StockMonitor extends Subscriber {
 	private Map<String, StockStatus> stockMap;
-	private StockMonitor instance = new StockMonitor();
+	private static StockMonitor instance = new StockMonitor();
 
 	private StockMonitor() {
 		stockMap = new HashMap<String, StockStatus>();
 	}
 
-	public StockMonitor getInstance(){
+	public static StockMonitor getInstance(){
 		if(instance == null){
 			instance = new StockMonitor();
 		}
@@ -70,6 +70,27 @@ public class StockMonitor extends Subscriber {
 	}
 
 	public static void main(String[] args) {
+		StockBroker stockBroker = StockBroker.getInstance();
+		StockMonitor stockMonitor = StockMonitor.getInstance();
+		EventService eventService =  EventService.getInstance();
+		eventService.subscribe(EventType.STOCKCREATION, stockBroker);
+		eventService.subscribe(EventType.STOCKCREATION, stockMonitor);
+		eventService.subscribe(EventType.PRICEUPDATE, stockMonitor);
+		
+		Stock appleStock = new Stock("AAPL", new Money(172.5f));
+		Stock amazonStock = new Stock("AMZN", new Money(1118.07f));
+		Stock teslaStock = new Stock("TSLA", new Money(299.33f));
+		
+		/* Should we use thread to update stock pricing in a loop and then print out
+		 * all test price changes?
+		 */
+		appleStock.addStatus(new Money(173.5f));
+		amazonStock.addStatus(new Money(1119.07f));
+		teslaStock.addStatus(new Money(300.33f));
+		
+		/* check to see if StockBroker and StockMonitor were informed or not
+		 * 
+		 */
 		
 	}
 }

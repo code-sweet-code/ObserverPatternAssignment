@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class StockBroker extends Subscriber {
-	private StockBroker instance = new StockBroker();
+	private static StockBroker instance = new StockBroker();
 	private Map<String, Stock> stocks;
 
 	private StockBroker() {
 		stocks = new HashMap<String, Stock>();
 	}
 
-	public StockBroker getInstance(){
+	public static StockBroker getInstance(){
 		if(instance == null){
 			instance = new StockBroker();
 		}

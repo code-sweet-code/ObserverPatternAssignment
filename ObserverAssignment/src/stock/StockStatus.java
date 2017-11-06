@@ -21,5 +21,13 @@ public class StockStatus {
 	public DateTime getDateTime(){
 		return date;
 	}
+	
+	public String toString(){
+		String print = "Stock Status for:" + System.lineSeparator()
+		+ stock.getSymbol() + System.lineSeparator() + 
+		"with Price: " + price.getAmount() + System.lineSeparator() +
+		"as of: " + date.getTime();
+		return print;
+	}
 
 }
