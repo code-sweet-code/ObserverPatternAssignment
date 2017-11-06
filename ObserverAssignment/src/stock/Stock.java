@@ -44,11 +44,11 @@ public class Stock extends Publisher {
 		return this.stockSymbol;
 	}
 	
-	public String toString(){
+/*	public String toString(){
 		String print = "Stock info: "
 		+ stockSymbol + System.lineSeparator() + 
 		"with Latest Status: " + getCurrentStatus().toString();
 		return print;
 	}
-
+*/
 }

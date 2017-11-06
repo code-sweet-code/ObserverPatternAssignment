@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class StockMonitor extends Subscriber {
-	private Map<String, StockStatus> stockMap;
+	private Map<Stock, StockStatus> stockMap;
 	private static StockMonitor instance = new StockMonitor();
 
 	private StockMonitor() {
-		stockMap = new HashMap<String, StockStatus>();
+		stockMap = new HashMap<Stock, StockStatus>();
 	}
 
 	public static StockMonitor getInstance(){
@@ -28,6 +28,7 @@ public class StockMonitor extends Subscriber {
 				if(StockCreationEvent.class.isInstance(event)){
 					StockCreationEvent stockCreationEvent = (StockCreationEvent) event;
 					addStock(stockCreationEvent.getStock());
+					display();
 				}
 				break;
 			}
@@ -35,6 +36,7 @@ public class StockMonitor extends Subscriber {
 				if(PriceUpdateEvent.class.isInstance(event)){
 					PriceUpdateEvent priceUpdateEvent = (PriceUpdateEvent) event;
 					addStatus(priceUpdateEvent.getUpdatedStatus());
+					display();
 				}
 				break;
 			}
@@ -46,14 +48,16 @@ public class StockMonitor extends Subscriber {
 	}
 	
 	public void display(){
-		System.out.println("Stock|Price");
-		Iterator<Entry<String, StockStatus>> iterator = stockMap.entrySet().iterator();
+		System.out.println("**************Stock Board**************");
+		System.out.println("*-------Stock------|-------Price------");
+		Iterator<Entry<Stock, StockStatus>> iterator = stockMap.entrySet().iterator();
 		while(iterator.hasNext()){
-			Entry<String, StockStatus> pair = iterator.next();
-			String symbol = pair.getKey();
-			Money price = pair.getValue().getPrice();
-			System.out.println(symbol+"|"+price.getAmount());
+			Entry<Stock, StockStatus> pair = iterator.next();
+			Stock stock = pair.getKey();
+			StockStatus status = pair.getValue();
+			System.out.println("*       "+stock.getSymbol()+"       |       "+status.getPrice().getAmount());
 		}
+		System.out.println("****************************************");
 	}
 	
 	public float getStockLatestPrice(String symbol){
@@ -62,11 +66,11 @@ public class StockMonitor extends Subscriber {
 	}
 
 	private void addStatus(StockStatus updatedStatus) {
-		this.stockMap.put(updatedStatus.getStock().getSymbol(), updatedStatus);
+		this.stockMap.put(updatedStatus.getStock(), updatedStatus);
 	}
 
 	private void addStock(Stock stock) {
-		this.stockMap.put(stock.getSymbol(), stock.getCurrentStatus());
+		this.stockMap.put(stock, stock.getCurrentStatus());
 	}
 
 	public static void main(String[] args) {
@@ -76,30 +80,14 @@ public class StockMonitor extends Subscriber {
 		eventService.subscribe(EventType.STOCKCREATION, stockBroker);
 		eventService.subscribe(EventType.STOCKCREATION, stockMonitor);
 		eventService.subscribe(EventType.PRICEUPDATE, stockMonitor);
+		stockMonitor.display();
 		
 		Stock appleStock = new Stock("AAPL", new Money(172.5f));
 		Stock amazonStock = new Stock("AMZN", new Money(1118.07f));
 		Stock teslaStock = new Stock("TSLA", new Money(299.33f));
-		
-		/* Should we use thread to update stock pricing in a loop and then print out
-		 * all test price changes?
-		 */
 		appleStock.addStatus(new Money(173.5f));
 		amazonStock.addStatus(new Money(1119.07f));
-		teslaStock.addStatus(new Money(300.33f));
-		
-		/* check to see if StockBroker and StockMonitor were informed or not
-		 * 
-		 */
-		System.out.println("Broker's Apple stock: " + stockBroker.getCurrentStockStatus("AAPL").toString());
-		System.out.println("Broker's Amazon stock: " + stockBroker.getCurrentStockStatus("AMZN").toString());
-		System.out.println("Broker's Tesla stock: " + stockBroker.getCurrentStockStatus("TSLA").toString());
-		
-		System.out.println("Monitor's Apple price stock: " + stockMonitor.getStockLatestPrice("AAPL"));
-		System.out.println("Monitor's Amazon price stock: " + stockMonitor.getStockLatestPrice("AMZN"));
-		System.out.println("Monitor's Tesla price stock: " + stockMonitor.getStockLatestPrice("TSLA"));
-		
-		
+		teslaStock.addStatus(new Money(300.33f));		
 		
 	}
 	
