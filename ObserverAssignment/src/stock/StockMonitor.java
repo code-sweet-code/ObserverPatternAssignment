@@ -91,6 +91,16 @@ public class StockMonitor extends Subscriber {
 		/* check to see if StockBroker and StockMonitor were informed or not
 		 * 
 		 */
+		System.out.println("Broker's Apple stock: " + stockBroker.getCurrentStockStatus("AAPL").toString());
+		System.out.println("Broker's Amazon stock: " + stockBroker.getCurrentStockStatus("AMZN").toString());
+		System.out.println("Broker's Tesla stock: " + stockBroker.getCurrentStockStatus("TSLA").toString());
+		
+		System.out.println("Monitor's Apple price stock: " + stockMonitor.getStockLatestPrice("AAPL"));
+		System.out.println("Monitor's Amazon price stock: " + stockMonitor.getStockLatestPrice("AMZN"));
+		System.out.println("Monitor's Tesla price stock: " + stockMonitor.getStockLatestPrice("TSLA"));
+		
+		
 		
 	}
+	
 }
