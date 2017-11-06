@@ -61,8 +61,16 @@ public class StockMonitor extends Subscriber {
 	}
 	
 	public float getStockLatestPrice(String symbol){
-		StockStatus updatedStatus = stockMap.get(symbol);
-		return updatedStatus.getPrice().getAmount();
+		Iterator<Entry<Stock, StockStatus>> iterator = stockMap.entrySet().iterator();
+		while(iterator.hasNext()){
+			Entry<Stock, StockStatus> pair = iterator.next();
+			Stock stock = pair.getKey();
+			if(stock.getSymbol() == symbol){
+				StockStatus status = pair.getValue();
+				return status.getPrice().getAmount();
+			}
+		}
+		return 0;
 	}
 
 	private void addStatus(StockStatus updatedStatus) {
