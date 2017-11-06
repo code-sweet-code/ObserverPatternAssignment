@@ -1,9 +1,15 @@
 package stock;
 
-public class DateTime {
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+public class DateTime {
+	private String dateTime;
 	public DateTime() {
-		// TODO Auto-generated constructor stub
+		dateTime = new SimpleDateFormat("MM-dd-yyyy-HH-mm-ss").format(new Date());
+	} 
+	public String getTime(){
+		return dateTime;
 	}
 
 }

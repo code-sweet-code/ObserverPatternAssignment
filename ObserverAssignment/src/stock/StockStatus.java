@@ -1,19 +1,25 @@
 package stock;
 
 public class StockStatus {
-
-	public StockStatus() {
-		// TODO Auto-generated constructor stub
+	private Stock stock;
+	private Money price;
+	private DateTime date;
+	public StockStatus(Stock stock, Money price, DateTime date) {
+		this.stock = stock;
+		this.price = price;
+		this.date = date;
 	}
 
 	public Stock getStock() {
-		// TODO Auto-generated method stub
-		return null;
+		return stock;
 	}
 
 	public Money getPrice() {
-		// TODO Auto-generated method stub
-		return null;
+		return price;
+	}
+	
+	public DateTime getDateTime(){
+		return date;
 	}
 
 }

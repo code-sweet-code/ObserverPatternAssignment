@@ -1,14 +1,14 @@
 package stock;
 
 public class Money {
+	private float amount;
 
-	public Money() {
-		// TODO Auto-generated constructor stub
+	public Money(float amount) {
+		this.amount = amount;
 	}
 
 	public float getAmount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return amount;	
 	}
 
 }
