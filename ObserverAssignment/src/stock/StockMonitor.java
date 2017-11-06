@@ -82,9 +82,9 @@ public class StockMonitor extends Subscriber {
 		eventService.subscribe(EventType.PRICEUPDATE, stockMonitor);
 		stockMonitor.display();
 		
-		Stock appleStock = new Stock("AAPL", new Money(172.5f));
-		Stock amazonStock = new Stock("AMZN", new Money(1118.07f));
-		Stock teslaStock = new Stock("TSLA", new Money(299.33f));
+		Stock appleStock = new Stock("AAPL", new Money(275.5f));
+		Stock amazonStock = new Stock("AMZN", new Money(919.07f));
+		Stock teslaStock = new Stock("TSLA", new Money(400.33f));
 		appleStock.addStatus(new Money(173.5f));
 		amazonStock.addStatus(new Money(1119.07f));
 		teslaStock.addStatus(new Money(300.33f));		
